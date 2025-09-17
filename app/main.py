@@ -9,7 +9,11 @@ from .db import init_db, get_conn
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 app = FastAPI()
-app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
+app.mount(
+    "/static", 
+    StaticFiles(directory=str(BASE_DIR / "static")), name="static"
+)
+
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
 # Simple email shape check Pydantic EmailStr later
