@@ -27,7 +27,34 @@ def on_startup():
 def home(request: Request, success: str | None = None, error: str | None = None):
     return templates.TemplateResponse(
         "index.html",
-        {"request": request, "success": success, "error": error},
+        {"request": request, "success": success, "error": error, "page": "home"},
+    )
+
+    
+
+@app.get("/contact", response_class=HTMLResponse)
+def contact(request: Request):
+    return templates.TemplateResponse(
+        "contact.html",
+        {"request": request, "page": "contact"},    
+    )
+
+@app.get("/engage", response_class=HTMLResponse)
+def engage(request: Request):
+    return templates.TemplateResponse(
+        "engage.html",
+        {"request": request, "page": "engage"},
+    )
+
+@app.get("/partners", response_class=HTMLResponse)
+def partners(request: Request):
+    partners = [
+        {"name":"Kyle Keane","org":"Example University","logo_url":"/static/logos/exu.svg",
+         "photo_url":"/static/people/kyle.jpg","description":"Accessible tech researcher","url":"#"}
+    ]
+    return templates.TemplateResponse(
+        "partners.html",
+        {"request": request, "page": "partners", "partners": partners},
     )
 
 @app.post("/register")

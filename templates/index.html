@@ -1,24 +1,33 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Hackathon Registration</title>  
-    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}" />
-</head>
-<body>
-    <header class="hero">
-        <h1>Hackathon 2025</h1>
-        <p>Please register interest to join. We'll follow up with details soon!</p>
-        {% if success %}<p class="flash success">{{ success }}</p>{% endif %}
-        {% if error %}<p class="flash error">{{ error}}</p>{% endif %}
-        <form action="/register" method="POST" class="signup">
-            <input type="text" name="full_name" placeholder="Full name" required />
-            <input type="email" name="email" placeholder="name@example.com" required />
-            <input type="number" name="year_of_study" placeholder="Year of study (e.g., 1, 2, 3)" min="1" max="10" required />
-            <input type="text" name="course_name" placeholder="Course name (e.g., BSc Computer Science)" required />
-            <button type="submit">Register</button>
-        </form>
-    </header>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Hackathon 2025 Registration{% endblock %}
+
+{% block content %}
+<header class="hero">
+    <h1>Access Bristol</h1>
+
+    <section class="schedule" aria-labelledby="schedule-heading">
+        <h2 id="schedule-heading">Schedule</h2>
+        <p class="location">Bristol, UK</p>
+        <dl class="days">
+            <dt>
+                <strong>8 November</strong> | Co-creation day
+            </dt>
+            <dt>
+                <strong>9 November</strong> | Hackathon and Gameathon
+            </dt>
+        </dl>
+    </section>
+
+    <p>Please register your interest to join. We'll follow up with more details soon!</p>
+    {% if success %}<p class="flash success">{{ success }}</p>{% endif %}
+    {% if error %}<p class="flash error">{{ error}}</p>{% endif %}
+    <form action="/register" method="POST" class="signup">
+        <input type="text" name="full_name" placeholder="Full name" required />
+        <input type="email" name="email" placeholder="name@example.com" required />
+        <input type="number" name="year_of_study" placeholder="Year of study (e.g., 1, 2, 3)" min="1" max="10" required />
+        <input type="text" name="course_name" placeholder="Course name (e.g., BSc Computer Science)" required />
+        <button type="submit">Register</button>
+    </form>
+</header>
+{% endblock %}
