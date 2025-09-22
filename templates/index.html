@@ -6,28 +6,38 @@
 <header class="hero">
     <h1>Access Bristol</h1>
 
-    <section class="schedule" aria-labelledby="schedule-heading">
-        <h2 id="schedule-heading">Schedule</h2>
-        <p class="location">Bristol, UK</p>
-        <dl class="days">
-            <dt>
-                <strong>8 November</strong> | Co-creation day
-            </dt>
-            <dt>
-                <strong>9 November</strong> | Hackathon and Gameathon
-            </dt>
-        </dl>
-    </section>
+<section aria-labelledby="schedule-heading">
+    <h2 id="schedule-heading">Schedule</h2>
+    <p class="location">Bristol, UK</p>
+    <dl class="days">
+        <dt><time datetime="2025-11-08">8 November</time></dt>
+        <dd>Co-creation day</dd>
+        <dt><time datetime="2025-11-09">9 November</time></dt>
+        <dd>Hackathon and Gameathon</dd>
+    </dl>
+</section>
 
-    <p>Please register your interest to join. We'll follow up with more details soon!</p>
-    {% if success %}<p class="flash success">{{ success }}</p>{% endif %}
-    {% if error %}<p class="flash error">{{ error}}</p>{% endif %}
-    <form action="/register" method="POST" class="signup">
-        <input type="text" name="full_name" placeholder="Full name" required />
-        <input type="email" name="email" placeholder="name@example.com" required />
-        <input type="number" name="year_of_study" placeholder="Year of study (e.g., 1, 2, 3)" min="1" max="10" required />
-        <input type="text" name="course_name" placeholder="Course name (e.g., BSc Computer Science)" required />
-        <button type="submit">Register</button>
-    </form>
+<p>Please register your interest to join. We'll follow up with more details soon!</p>
+{% if success %}<p class="flash success" role="status">{{ success }}</p>{% endif %}
+{% if error %}<p class="flash error" role="alert">{{ error }}</p>{% endif %}
+<form action="/register" method="POST" class="signup">
+    <div>
+        <label for="full_name">Full name</label>
+        <input type="text" id="full_name" name="full_name" required />
+    </div>
+    <div>
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="name@example.com" required />
+    </div>
+    <div>
+        <label for="year_of_study">Year of study</label>
+        <input type="number" id="year_of_study" name="year_of_study" placeholder="e.g., 1, 2, 3" min="1" max="10" required />
+    </div>
+    <div>
+        <label for="course_name">Course name</label>
+        <input type="text" id="course_name" name="course_name" placeholder="e.g., BSc Computer Science" required />
+    </div>
+    <button type="submit">Register</button>
+</form>
 </header>
 {% endblock %}
