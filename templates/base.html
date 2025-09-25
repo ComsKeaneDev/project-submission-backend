@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}" />
 </head>
 <body>
-        
+
     <nav class="site-nav" aria-label="Main Navigation" role="navigation">
     <ul class="site-nav__list">
-        <li class="site-nav__item"><a class="site-nav__link" href="/" aria-current="{{ 'page' if page == 'events' else 'false' }}">Events</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="/" aria-current="{{ 'page' if page == 'home' else 'false' }}">Register</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="/events" aria-current="{{ 'page' if page == 'events' else 'false' }}">Events</a></li>
         <li class="site-nav__item"><a class="site-nav__link" href="/contact" aria-current="{{ 'page' if page == 'contact' else 'false' }}">Contact</a></li>
         <li class="site-nav__item"><a class="site-nav__link" href="/engage" aria-current="{{ 'page' if page == 'engage' else 'false' }}">Engage</a></li>
         <li class="site-nav__item"><a class="site-nav__link" href="/partners" aria-current="{{ 'page' if page == 'partners' else 'false' }}">Our Partners</a></li>
@@ -21,7 +22,6 @@
 
     <main>
         {% block content %}
-        <!-- Content unique to each page -->
         {% endblock %}
     </main>
 </body>

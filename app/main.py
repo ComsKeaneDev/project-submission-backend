@@ -10,7 +10,7 @@ from .db import init_db, get_conn
 BASE_DIR = Path(__file__).resolve().parent.parent
 app = FastAPI()
 app.mount(
-    "/static", 
+    "/static",
     StaticFiles(directory=str(BASE_DIR / "static")), name="static"
 )
 
@@ -30,13 +30,18 @@ def home(request: Request, success: str | None = None, error: str | None = None)
         {"request": request, "success": success, "error": error, "page": "home"},
     )
 
-    
+@app.get("/events", response_class=HTMLResponse)
+def events(request: Request):
+    return templates.TemplateResponse(
+        "events.html",
+        {"request": request, "page": "events"},
+    )
 
 @app.get("/contact", response_class=HTMLResponse)
 def contact(request: Request):
     return templates.TemplateResponse(
         "contact.html",
-        {"request": request, "page": "contact"},    
+        {"request": request, "page": "contact"},
     )
 
 @app.get("/engage", response_class=HTMLResponse)
