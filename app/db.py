@@ -25,10 +25,12 @@ def init_db():
         cur.execute("""
         CREATE TABLE IF NOT EXISTS registrations (
             id INTEGER PRIMARY KEY,
-            full_name TEXT NOT NULL,
+            first_name TEXT NOT NULL,
+            last_name TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE,
-            year_of_study INTEGER NOT NULL,
-            course_name TEXT NOT NULL,
+            year_of_study INTEGER,
+            course_name TEXT,
+            additional_info TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
         """)
