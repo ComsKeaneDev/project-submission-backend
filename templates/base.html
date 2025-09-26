@@ -4,25 +4,47 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Tierras Accessibility{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}" />
 </head>
 <body>
-        
+
     <nav class="site-nav" aria-label="Main Navigation" role="navigation">
-    <ul class="site-nav__list">
-        <li class="site-nav__item"><a class="site-nav__link" href="/" aria-current="{{ 'page' if page == 'events' else 'false' }}">Events</a></li>
-        <li class="site-nav__item"><a class="site-nav__link" href="/contact" aria-current="{{ 'page' if page == 'contact' else 'false' }}">Contact</a></li>
-        <li class="site-nav__item"><a class="site-nav__link" href="/engage" aria-current="{{ 'page' if page == 'engage' else 'false' }}">Engage</a></li>
-        <li class="site-nav__item"><a class="site-nav__link" href="/partners" aria-current="{{ 'page' if page == 'partners' else 'false' }}">Our Partners</a></li>
-    </ul>
+        <button class="hamburger-menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="nav-title">
+            {% if page == 'home' %}Register
+            {% elif page == 'events' %}Events
+            {% elif page == 'partners' %}Our Partners
+            {% endif %}
+        </div>
+
+        <ul id="nav-links" class="site-nav__list">
+            <li class="site-nav__item"><a class="site-nav__link" href="/" aria-current="{{ 'page' if page == 'home' else 'false' }}">Register</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="/events" aria-current="{{ 'page' if page == 'events' else 'false' }}">Events</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="/partners" aria-current="{{ 'page' if page == 'partners' else 'false' }}">Our Partners</a></li>
+        </ul>
     </nav>
 
 
     <main>
         {% block content %}
-        <!-- Content unique to each page -->
         {% endblock %}
     </main>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger-menu');
+        const navLinks = document.querySelector('#nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('is-active');
+            navLinks.classList.toggle('is-active');
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+        });
+    </script>
 </body>
 </html>

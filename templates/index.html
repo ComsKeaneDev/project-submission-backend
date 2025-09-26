@@ -1,33 +1,79 @@
 {% extends "base.html" %}
 
-{% block title %}Hackathon 2025 Registration{% endblock %}
+{% block title %}Access Bristol{% endblock %}
 
 {% block content %}
 <header class="hero">
     <h1>Access Bristol</h1>
 
-    <section class="schedule" aria-labelledby="schedule-heading">
-        <h2 id="schedule-heading">Schedule</h2>
-        <p class="location">Bristol, UK</p>
-        <dl class="days">
-            <dt>
-                <strong>8 November</strong> | Co-creation day
-            </dt>
-            <dt>
-                <strong>9 November</strong> | Hackathon and Gameathon
-            </dt>
-        </dl>
-    </section>
+<section aria-labelledby="schedule-heading">
+    <p class="location">8-9th November, Bristol</p>
+    <a href="/events" class="button-secondary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+        <span>View Schedule</span>
+    </a>
+</section>
 
-    <p>Please register your interest to join. We'll follow up with more details soon!</p>
-    {% if success %}<p class="flash success">{{ success }}</p>{% endif %}
-    {% if error %}<p class="flash error">{{ error}}</p>{% endif %}
-    <form action="/register" method="POST" class="signup">
-        <input type="text" name="full_name" placeholder="Full name" required />
-        <input type="email" name="email" placeholder="name@example.com" required />
-        <input type="number" name="year_of_study" placeholder="Year of study (e.g., 1, 2, 3)" min="1" max="10" required />
-        <input type="text" name="course_name" placeholder="Course name (e.g., BSc Computer Science)" required />
-        <button type="submit">Register</button>
-    </form>
+<p>Please register your interest to join. We'll follow up with more details soon!</p>
+{% if success %}<p class="flash success" role="status">{{ success }}</p>{% endif %}
+{% if error %}<p class="flash error" role="alert">{{ error }}</p>{% endif %}
+<form action="/register" method="POST" class="signup">
+    <div class="form-group">
+        <label for="first_name">First name</label>
+        <input type="text" id="first_name" name="first_name" value="{{ form_data.first_name if form_data else '' }}" required />
+    </div>
+    <div class="form-group">
+        <label for="last_name">Last name</label>
+        <input type="text" id="last_name" name="last_name" value="{{ form_data.last_name if form_data else '' }}" required />
+    </div>
+    <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="name@example.com" value="{{ form_data.email if form_data else '' }}" required />
+    </div>
+    
+    <div id="student_fields_container" class="form-group">
+        <div class="checkbox-container">
+            <input type="checkbox" id="is_student" name="is_student" value="true" onchange="toggleStudentFields()" {% if form_data.is_student %}checked{% endif %}>
+            <label for="is_student">Are you a student?</label>
+        </div>
+        <div id="student_fields" style="display: none;">
+            <div class="form-group">
+                <label for="year_of_study">Year of study</label>
+                <input type="number" id="year_of_study" name="year_of_study" placeholder="e.g., 1, 2, 3" min="1" max="10" value="{{ form_data.year_of_study if form_data else '' }}" />
+            </div>
+            <div class="form-group">
+                <label for="course_name">Course name</label>
+                <input type="text" id="course_name" name="course_name" placeholder="e.g., BSc Computer Science" value="{{ form_data.course_name if form_data else '' }}" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="additional_info">Is there anything you want us to know about you and your interest to participate?</label>
+        <textarea id="additional_info" name="additional_info" rows="4">{{ form_data.additional_info if form_data else '' }}</textarea>
+    </div>
+    <button type="submit">Register</button>
+</form>
+
+<script>
+    function toggleStudentFields() {
+        var checkbox = document.getElementById('is_student');
+        var studentFields = document.getElementById('student_fields');
+        var yearOfStudy = document.getElementById('year_of_study');
+        var courseName = document.getElementById('course_name');
+
+        if (checkbox.checked) {
+            studentFields.style.display = 'block';
+            yearOfStudy.required = true;
+            courseName.required = true;
+        } else {
+            studentFields.style.display = 'none';
+            yearOfStudy.required = false;
+            courseName.required = false;
+        }
+    }
+    // Initialize the fields on page load
+    toggleStudentFields();
+</script>
 </header>
 {% endblock %}
