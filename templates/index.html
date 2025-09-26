@@ -52,6 +52,22 @@
         <label for="additional_info">Is there anything you want us to know about you and your interest to participate?</label>
         <textarea id="additional_info" name="additional_info" rows="4">{{ form_data.additional_info if form_data else '' }}</textarea>
     </div>
+
+    <div class="form-group">
+        <div class="checkbox-container">
+            <input type="checkbox" id="mailing_list_consent" name="mailing_list_consent" value="true" {% if form_data.mailing_list_consent %}checked{% endif %}>
+            <label for="mailing_list_consent">Add me to the mailing list for future events.</label>
+        </div>
+    </div>
+
+    <div class="form-group gdpr-consent">
+        <div class="checkbox-container">
+            <input type="checkbox" id="gdpr_consent" name="gdpr_consent">
+            <label for="gdpr_consent">I agree to the terms.</label>
+        </div>
+        <p class="small">By submitting this form, I consent to having my personal data collected and stored for the purpose of organizing and communicating about this event.</p>
+    </div>
+
     <button type="submit">Register</button>
 </form>
 

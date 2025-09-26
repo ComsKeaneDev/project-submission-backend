@@ -48,6 +48,7 @@ def init_db():
                 year_of_study INTEGER,
                 course_name TEXT,
                 additional_info TEXT,
+                mailing_list_consent BOOLEAN DEFAULT FALSE,
                 created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
             )
             """
@@ -62,6 +63,7 @@ def init_db():
                 year_of_study INTEGER,
                 course_name TEXT,
                 additional_info TEXT,
+                mailing_list_consent BOOLEAN DEFAULT FALSE,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
             """
