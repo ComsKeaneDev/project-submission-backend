@@ -47,7 +47,7 @@ def partners(request: Request):
             "logo_url": "https://jobs.opensafely.org/uploads/org_logos/uob.png",
             "photo_url": "https://media.licdn.com/dms/image/v2/D4E03AQFDCm-L1a8u1g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1730579720100?e=1761782400&v=beta&t=rWOBMlsEk34b70TVaASj6yoQFe0IXbiesIkhmtkcDTI",
             "description": "Accessible tech researcher",
-            "url": "#"
+            "url": "https://www.bristol.ac.uk/people/person/Kyle-Keane-3b30cecb-458f-429d-9686-1a6ef5bc6518/"
         }
     ]
     return templates.TemplateResponse(
