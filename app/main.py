@@ -18,7 +18,7 @@ app.mount(
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
 # Simple email shape check Pydantic EmailStr later
-EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+EMAIL_RE = re.compile(r"^[^@\s]+\.[^@\s]+\.[^@\s]+$")
 
 @app.on_event("startup")
 def on_startup():
@@ -41,8 +41,14 @@ def events(request: Request):
 @app.get("/partners", response_class=HTMLResponse)
 def partners(request: Request):
     partners = [
-        {"name":"Kyle Keane","org":"Example University","logo_url":"/static/logos/exu.svg",
-         "photo_url":"/static/people/kyle.jpg","description":"Accessible tech researcher","url":"#"}
+        {
+            "name": "Kyle Keane",
+            "org": "University of Bristol",
+            "logo_url": "https://jobs.opensafely.org/uploads/org_logos/uob.png",
+            "photo_url": "https://media.licdn.com/dms/image/v2/D4E03AQFDCm-L1a8u1g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1730579720100?e=1761782400&v=beta&t=rWOBMlsEk34b70TVaASj6yoQFe0IXbiesIkhmtkcDTI",
+            "description": "Accessible tech researcher",
+            "url": "#"
+        }
     ]
     return templates.TemplateResponse(
         "partners.html",

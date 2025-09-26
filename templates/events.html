@@ -4,16 +4,23 @@
 
 {% block content %}
 <header class="hero">
-    <h1>Events</h1>
-<section aria-labelledby="schedule-heading">
-    <h2 id="schedule-heading">Schedule</h2>
+    <h1>Access Bristol</h1>
     <p class="location">Bristol, UK</p>
-    <dl class="days">
-        <dt><time datetime="2025-11-08">8 November</time></dt>
-        <dd>Co-creation day</dd>
-        <dt><time datetime="2025-11-09">9 November</time></dt>
-        <dd>Hackathon and Gameathon</dd>
-    </dl>
-</section>
 </header>
+
+<div class="schedule-container">
+    <div class="schedule-day">
+        <h2 class="schedule-date">Saturday, 8 November</h2>
+        <ul class="schedule-list">
+            <li><strong>Times TBD</strong> Co-creation Day</li>
+        </ul>
+    </div>
+
+    <div class="schedule-day">
+        <h2 class="schedule-date">Sunday, 9 November</h2>
+        <ul class="schedule-list">
+            <li><strong>Times TDB</strong> Hackathon & Gameathon Day!</li>
+        </ul>
+    </div>
+</div>
 {% endblock %}
