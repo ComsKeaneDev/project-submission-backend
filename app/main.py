@@ -55,6 +55,14 @@ def partners(request: Request):
         {"request": request, "page": "partners", "partners": partners},
     )
 
+# New route for the confirmation page
+@app.get("/confirmation", response_class=HTMLResponse)
+def confirmation(request: Request):
+    return templates.TemplateResponse(
+        "confirmation.html", 
+        {"request": request, "page": "confirmation"}
+    )
+
 @app.post("/register")
 def register(
     request: Request,
@@ -139,7 +147,8 @@ def register(
                     (first_name_norm, last_name_norm, email_norm, year_of_study_int, course_name_norm, additional_info_norm)
                 )
             conn.commit()
-            return RedirectResponse("/?success=Registration%20received", status_code=303)
+            # Redirect to the new confirmation page on success
+            return RedirectResponse(url="/confirmation", status_code=303)
         except Exception as e:
             # Fall back to duplicate error for any integrity issue; add logging if needed
             print(e)
