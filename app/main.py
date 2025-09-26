@@ -38,20 +38,6 @@ def events(request: Request):
         {"request": request, "page": "events"},
     )
 
-@app.get("/contact", response_class=HTMLResponse)
-def contact(request: Request):
-    return templates.TemplateResponse(
-        "contact.html",
-        {"request": request, "page": "contact"},
-    )
-
-@app.get("/engage", response_class=HTMLResponse)
-def engage(request: Request):
-    return templates.TemplateResponse(
-        "engage.html",
-        {"request": request, "page": "engage"},
-    )
-
 @app.get("/partners", response_class=HTMLResponse)
 def partners(request: Request):
     partners = [
