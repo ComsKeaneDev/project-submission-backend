@@ -18,7 +18,7 @@ app.mount(
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
 # Simple email shape check Pydantic EmailStr later
-EMAIL_RE = re.compile(r"^[^@\s]+\.[^@\s]+\.[^@\s]+$")
+EMAIL_RE = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
 
 @app.on_event("startup")
 def on_startup():
