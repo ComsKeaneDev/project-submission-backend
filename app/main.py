@@ -54,6 +54,13 @@ def partners(request: Request):
         {"request": request, "page": "partners", "partners": partners},
     )
 
+@app.get("/privacy", response_class=HTMLResponse)
+def privacy(request: Request):
+    return templates.TemplateResponse(
+        "privacy.html", 
+        {"request": request, "page": "privacy"}
+    )
+
 @app.get("/confirmation", response_class=HTMLResponse)
 def confirmation(request: Request):
     return templates.TemplateResponse(

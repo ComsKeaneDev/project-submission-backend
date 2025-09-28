@@ -19,6 +19,7 @@
             {% if page == 'home' %}Register
             {% elif page == 'schedule' %}Schedule
             {% elif page == 'partners' %}Our Partners
+            {% elif page == 'privacy' %}Privacy Policy
             {% elif page == 'confirmation' %}Confirmation
             {% endif %}
         </div>
@@ -35,6 +36,10 @@
         {% block content %}
         {% endblock %}
     </main>
+
+    <footer>
+        <a href="/privacy">Privacy Policy</a>
+    </footer>
 
     <script>
         const hamburger = document.querySelector('.hamburger-menu');
