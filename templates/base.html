@@ -17,7 +17,7 @@
 
         <div class="nav-title">
             {% if page == 'home' %}Register
-            {% elif page == 'events' %}Events
+            {% elif page == 'schedule' %}Schedule
             {% elif page == 'partners' %}Our Partners
             {% elif page == 'confirmation' %}Confirmation
             {% endif %}
@@ -25,7 +25,7 @@
 
         <ul id="nav-links" class="site-nav__list">
             <li class="site-nav__item"><a class="site-nav__link" href="/" aria-current="{{ 'page' if page == 'home' else 'false' }}">Register</a></li>
-            <li class="site-nav__item"><a class="site-nav__link" href="/events" aria-current="{{ 'page' if page == 'events' else 'false' }}">Events</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="/schedule" aria-current="{{ 'page' if page == 'schedule' else 'false' }}">Schedule</a></li>
             <li class="site-nav__item"><a class="site-nav__link" href="/partners" aria-current="{{ 'page' if page == 'partners' else 'false' }}">Our Partners</a></li>
         </ul>
     </nav>

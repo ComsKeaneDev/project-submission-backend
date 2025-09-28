@@ -30,11 +30,11 @@ def home(request: Request, success: str | None = None, error: str | None = None)
         {"request": request, "success": success, "error": error, "page": "home", "form_data": {}},
     )
 
-@app.get("/events", response_class=HTMLResponse)
-def events(request: Request):
+@app.get("/schedule", response_class=HTMLResponse)
+def schedule(request: Request):
     return templates.TemplateResponse(
-        "events.html",
-        {"request": request, "page": "events"},
+        "schedule.html",
+        {"request": request, "page": "schedule"},
     )
 
 @app.get("/partners", response_class=HTMLResponse)
