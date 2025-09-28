@@ -14,7 +14,7 @@ p { color:var(--muted); max-width:60ch; }
 .flash.error { color:#ffb4b4; }
 .info { padding:2rem 1rem 3rem; display:grid; gap:1rem; max-width:900px; margin:0 auto; }
 ul { padding-left:1.2rem; }
-footer { border-top:1px solid #1b2340; padding:1rem; text-align:center; color:#8c94b2; }
+footer { border-top:1px solid #1b2340; padding:2rem 1rem; text-align:center; color:var(--muted); }
 
 /* --- Navigation Bar --- */
 .site-nav {
@@ -242,6 +242,8 @@ footer { border-top:1px solid #1b2340; padding:1rem; text-align:center; color:#8
 .signup textarea { resize: vertical; min-height: 80px; }
 #student_fields { padding-left: 1rem; border-left: 2px solid #26304f; margin-top: 1rem; }
 #student_fields .form-group:last-child { margin-bottom: 0; }
+.gdpr-consent a { color: var(--accent); }
+.gdpr-consent a:hover { text-decoration: none; }
 
 
 /* Custom Checkbox */
@@ -311,22 +313,85 @@ footer { border-top:1px solid #1b2340; padding:1rem; text-align:center; color:#8
     text-align: left;
 }
 
-.schedule-list {
-    list-style: none; /* Removes the bullet points */
-    padding-left: 0;
-    margin: 0;
-    text-align: left;
+.schedule-timeline {
+    position: relative;
+    padding-left: 2rem;
 }
 
-.schedule-list li {
-    padding-left: 1.5rem;
+.schedule-timeline::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    bottom: 10px;
+    width: 2px;
+    background-color: #26304f;
+}
+
+.schedule-item {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 1rem;
     margin-bottom: 1rem;
-    /* This creates the hanging indent for overflowing text */
-    text-indent: -1.5rem;
+    position: relative;
 }
 
-.schedule-list li strong {
+.schedule-item::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: -2rem;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    border: 3px solid var(--bg);
+    margin-left: 1px;
+}
+
+.schedule-time {
+    font-weight: 600;
+    color: var(--muted);
+    text-align: right;
+    padding-right: 1rem;
+}
+
+.schedule-event {
+    background-color: #0f1530;
+    border: 1px solid #26304f;
+    padding: 1rem;
+    border-radius: .6rem;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.schedule-event:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.schedule-event h3 {
+    margin: 0 0 .5rem 0;
+    font-size: 1.1rem;
     color: var(--fg);
-    font-weight: 700;
-    margin-right: 0.5rem;
+}
+
+.sub-event {
+    font-size: .95rem;
+    color: var(--muted);
+    padding-left: 1rem;
+    border-left: 2px solid #26304f;
+    margin-top: .5rem;
+}
+
+/* --- Footer Styles --- */
+footer a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+footer a:hover,
+footer a:focus-visible {
+    color: var(--accent);
+    text-decoration: underline;
 }

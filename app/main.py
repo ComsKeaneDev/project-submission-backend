@@ -17,7 +17,6 @@ app.mount(
 
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
-# Simple email shape check Pydantic EmailStr later
 EMAIL_RE = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
 
 @app.on_event("startup")
@@ -31,11 +30,11 @@ def home(request: Request, success: str | None = None, error: str | None = None)
         {"request": request, "success": success, "error": error, "page": "home", "form_data": {}},
     )
 
-@app.get("/events", response_class=HTMLResponse)
-def events(request: Request):
+@app.get("/schedule", response_class=HTMLResponse)
+def schedule(request: Request):
     return templates.TemplateResponse(
-        "events.html",
-        {"request": request, "page": "events"},
+        "schedule.html",
+        {"request": request, "page": "schedule"},
     )
 
 @app.get("/partners", response_class=HTMLResponse)
@@ -55,6 +54,20 @@ def partners(request: Request):
         {"request": request, "page": "partners", "partners": partners},
     )
 
+@app.get("/privacy", response_class=HTMLResponse)
+def privacy(request: Request):
+    return templates.TemplateResponse(
+        "privacy.html", 
+        {"request": request, "page": "privacy"}
+    )
+
+@app.get("/confirmation", response_class=HTMLResponse)
+def confirmation(request: Request):
+    return templates.TemplateResponse(
+        "confirmation.html", 
+        {"request": request, "page": "confirmation"}
+    )
+
 @app.post("/register")
 def register(
     request: Request,
@@ -62,15 +75,25 @@ def register(
     last_name: str = Form(...),
     email: str = Form(...),
     is_student: Optional[str] = Form(None),
-    year_of_study: Optional[str] = Form(None), # Accept as string
+    year_of_study: Optional[str] = Form(None), 
     course_name: Optional[str] = Form(None),
-    additional_info: Optional[str] = Form(None)
+    additional_info: Optional[str] = Form(None),
+    mailing_list_consent: Optional[str] = Form(None),
+    gdpr_consent: Optional[str] = Form(None)
 ):
-    # Minimal validations make more robust later
-    if len(first_name.strip()) < 1:
-        return RedirectResponse("/?error=First%20name%20is%20required", status_code=303)
-    if len(last_name.strip()) < 1:
-        return RedirectResponse("/?error=Last%20name%20is%20required", status_code=303)
+    # This is the server-side check
+    if not gdpr_consent:
+        form_data = {
+            "first_name": first_name, "last_name": last_name, "email": email,
+            "is_student": is_student, "year_of_study": year_of_study,
+            "course_name": course_name, "additional_info": additional_info,
+            "mailing_list_consent": mailing_list_consent
+        }
+        return templates.TemplateResponse(
+            "index.html",
+            {"request": request, "error": "You must agree to the terms to register.", "form_data": form_data, "page": "home"}
+        )
+
     if not EMAIL_RE.match(email):
         return RedirectResponse("/?error=Invalid%20email", status_code=303)
 
@@ -79,68 +102,28 @@ def register(
         if not year_of_study or not year_of_study.isdigit():
             return RedirectResponse("/?error=Valid%20year%20of%20study%20is%20required%20for%20students", status_code=303)
         year_of_study_int = int(year_of_study)
-        if year_of_study_int < 1 or year_of_study_int > 10:
-             return RedirectResponse("/?error=Year%20of%20study%20invalid", status_code=303)
-        if not course_name or len(course_name.strip()) < 2:
-            return RedirectResponse("/?error=Course%20name%20is%20required%20for%20students", status_code=303)
-
 
     email_norm = email.strip().lower()
     first_name_norm = first_name.strip()
     last_name_norm = last_name.strip()
     course_name_norm = course_name.strip() if course_name else None
     additional_info_norm = additional_info.strip() if additional_info else None
+    mailing_list_bool = True if mailing_list_consent else False
 
     with get_conn() as conn:
         cur = conn.cursor()
-        is_pg = hasattr(cur, "mogrify")  # crude psycopg2 detection
+        is_pg = hasattr(cur, "mogrify")
         
-        # Check for duplicate email
-        if is_pg:
-            cur.execute("SELECT 1 FROM registrations WHERE email = %s", (email_norm,))
-        else:
-            cur.execute("SELECT 1 FROM registrations WHERE email = ?", (email_norm,))
+        query = "SELECT 1 FROM registrations WHERE email = %s" if is_pg else "SELECT 1 FROM registrations WHERE email = ?"
+        cur.execute(query, (email_norm,))
         
         if cur.fetchone():
-            form_data = {
-                "first_name": first_name_norm,
-                "last_name": last_name_norm,
-                "email": email_norm,
-                "is_student": is_student,
-                "year_of_study": year_of_study,
-                "course_name": course_name_norm,
-                "additional_info": additional_info_norm
-            }
-            return templates.TemplateResponse(
-                "index.html",
-                {
-                    "request": request,
-                    "error": "Email already registered",
-                    "form_data": form_data,
-                    "page": "home"
-                },
-            )
-        # Insert with the correct placeholder style
-        try:
-            if is_pg:
-                cur.execute(
-                    """
-                    INSERT INTO registrations (first_name, last_name, email, year_of_study, course_name, additional_info)
-                    VALUES (%s, %s, %s, %s, %s, %s)
-                    """,
-                    (first_name_norm, last_name_norm, email_norm, year_of_study_int, course_name_norm, additional_info_norm)
-                )
-            else:
-                cur.execute(
-                    """
-                    INSERT INTO registrations (first_name, last_name, email, year_of_study, course_name, additional_info)
-                    VALUES (?, ?, ?, ?, ?, ?)
-                    """,
-                    (first_name_norm, last_name_norm, email_norm, year_of_study_int, course_name_norm, additional_info_norm)
-                )
-            conn.commit()
-            return RedirectResponse("/?success=Registration%20received", status_code=303)
-        except Exception as e:
-            # Fall back to duplicate error for any integrity issue; add logging if needed
-            print(e)
-            return RedirectResponse("/?error=Email%20already%20registered", status_code=303)
+            form_data = { "first_name": first_name_norm, "last_name": last_name_norm, "email": email_norm, "is_student": is_student, "year_of_study": year_of_study, "course_name": course_name_norm, "additional_info": additional_info_norm, "mailing_list_consent": mailing_list_consent }
+            return templates.TemplateResponse("index.html", {"request": request, "error": "Email already registered", "form_data": form_data, "page": "home"})
+
+        insert_query = "INSERT INTO registrations (first_name, last_name, email, year_of_study, course_name, additional_info, mailing_list_consent) VALUES (%s, %s, %s, %s, %s, %s, %s)" if is_pg else "INSERT INTO registrations (first_name, last_name, email, year_of_study, course_name, additional_info, mailing_list_consent) VALUES (?, ?, ?, ?, ?, ?, ?)"
+        params = (first_name_norm, last_name_norm, email_norm, year_of_study_int, course_name_norm, additional_info_norm, mailing_list_bool)
+        cur.execute(insert_query, params)
+        conn.commit()
+            
+    return RedirectResponse(url="/confirmation", status_code=303)

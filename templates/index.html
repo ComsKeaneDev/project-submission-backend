@@ -8,7 +8,7 @@
 
 <section aria-labelledby="schedule-heading">
     <p class="location">8-9th November, Bristol</p>
-    <a href="/events" class="button-secondary">
+    <a href="/schedule" class="button-secondary">
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
         <span>View Schedule</span>
     </a>
@@ -52,6 +52,22 @@
         <label for="additional_info">Is there anything you want us to know about you and your interest to participate?</label>
         <textarea id="additional_info" name="additional_info" rows="4">{{ form_data.additional_info if form_data else '' }}</textarea>
     </div>
+
+    <div class="form-group">
+        <div class="checkbox-container">
+            <input type="checkbox" id="mailing_list_consent" name="mailing_list_consent" value="true" {% if form_data.mailing_list_consent %}checked{% endif %}>
+            <label for="mailing_list_consent">Add me to the mailing list for future events.</label>
+        </div>
+    </div>
+
+    <div class="form-group gdpr-consent">
+        <div class="checkbox-container">
+            <input type="checkbox" id="gdpr_consent" name="gdpr_consent" required>
+            <label for="gdpr_consent">I have read and agree to the <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</label>
+        </div>
+        <p class="small">By submitting this form, I consent to having my personal data collected and stored for the purpose of organizing and communicating about this event.</p>
+    </div>
+
     <button type="submit">Register</button>
 </form>
 
