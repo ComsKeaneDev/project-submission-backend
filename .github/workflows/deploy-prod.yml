@@ -3,6 +3,7 @@ name: Deploy prod to Elastic Beanstalk
 on:
   push:
     branches: [ production ]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -39,3 +40,4 @@ jobs:
           version_label: ${{ github.sha }}
           region: eu-west-2
           deployment_package: deploy.zip
+          use_existing_version_if_available: true
