@@ -13,6 +13,8 @@ p { color:var(--muted); max-width:60ch; }
 .flash.success { color:#b7f9d0; }
 .flash.error { color:#ffb4b4; }
 .info { padding:2rem 1rem 3rem; display:grid; gap:1rem; max-width:900px; margin:0 auto; }
+.info a { color: var(--accent); }
+.info a:hover { text-decoration: none; }
 ul { padding-left:1.2rem; }
 footer { border-top:1px solid #1b2340; padding:2rem 1rem; text-align:center; color:var(--muted); }
 

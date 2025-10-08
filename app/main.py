@@ -54,17 +54,31 @@ def partners(request: Request):
         {"request": request, "page": "partners", "partners": partners},
     )
 
+@app.get("/philosophy", response_class=HTMLResponse)
+def philosophy(request: Request):
+    return templates.TemplateResponse(
+        "philosophy.html",
+        {"request": request, "page": "philosophy"},
+    )
+
+@app.get("/resources", response_class=HTMLResponse)
+def resources(request: Request):
+    return templates.TemplateResponse(
+        "resources.html",
+        {"request": request, "page": "resources"},
+    )
+
 @app.get("/privacy", response_class=HTMLResponse)
 def privacy(request: Request):
     return templates.TemplateResponse(
-        "privacy.html", 
+        "privacy.html",
         {"request": request, "page": "privacy"}
     )
 
 @app.get("/confirmation", response_class=HTMLResponse)
 def confirmation(request: Request):
     return templates.TemplateResponse(
-        "confirmation.html", 
+        "confirmation.html",
         {"request": request, "page": "confirmation"}
     )
 
@@ -75,7 +89,7 @@ def register(
     last_name: str = Form(...),
     email: str = Form(...),
     is_student: Optional[str] = Form(None),
-    year_of_study: Optional[str] = Form(None), 
+    year_of_study: Optional[str] = Form(None),
     course_name: Optional[str] = Form(None),
     additional_info: Optional[str] = Form(None),
     mailing_list_consent: Optional[str] = Form(None),
@@ -113,10 +127,10 @@ def register(
     with get_conn() as conn:
         cur = conn.cursor()
         is_pg = hasattr(cur, "mogrify")
-        
+
         query = "SELECT 1 FROM registrations WHERE email = %s" if is_pg else "SELECT 1 FROM registrations WHERE email = ?"
         cur.execute(query, (email_norm,))
-        
+
         if cur.fetchone():
             form_data = { "first_name": first_name_norm, "last_name": last_name_norm, "email": email_norm, "is_student": is_student, "year_of_study": year_of_study, "course_name": course_name_norm, "additional_info": additional_info_norm, "mailing_list_consent": mailing_list_consent }
             return templates.TemplateResponse("index.html", {"request": request, "error": "Email already registered", "form_data": form_data, "page": "home"})
@@ -125,5 +139,5 @@ def register(
         params = (first_name_norm, last_name_norm, email_norm, year_of_study_int, course_name_norm, additional_info_norm, mailing_list_bool)
         cur.execute(insert_query, params)
         conn.commit()
-            
+
     return RedirectResponse(url="/confirmation", status_code=303)
