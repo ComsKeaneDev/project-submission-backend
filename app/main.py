@@ -39,7 +39,7 @@ def schedule(request: Request):
 
 @app.get("/partners", response_class=HTMLResponse)
 def partners(request: Request):
-    partners = [
+    organisers = [
         {
             "name": "Kyle Keane",
             "org": "University of Bristol",
@@ -47,25 +47,68 @@ def partners(request: Request):
             "photo_url": "https://media.licdn.com/dms/image/v2/D4E03AQFDCm-L1a8u1g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1730579720100?e=1761782400&v=beta&t=rWOBMlsEk34b70TVaASj6yoQFe0IXbiesIkhmtkcDTI",
             "description": "Accessible tech researcher",
             "url": "https://www.bristol.ac.uk/people/person/Kyle-Keane-3b30cecb-458f-429d-9686-1a6ef5bc6518/"
+        },
+        {
+            "name": "Dixant Pant",
+            "org": "University of Bristol",
+            "logo_url": "https://jobs.opensafely.org/uploads/org_logos/uob.png",
+            "photo_url": "https://media.licdn.com/dms/image/v2/D4E03AQGiw1BQAsaPMg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1686739668271?e=1762992000&v=beta&t=_8gWbv3jr5L05P7mdcr9uZW0tOFGyMSPWgjBsXTL5mA",
+            "description": "Final year Computer Science BS student",
         }
+    ]
+    sponsors = [
+        {
+            "name": "GitHub",
+            "org": "Sponsor",
+            "logo_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            "url": "https://github.com"
+
+        },
+        {
+            "name": "Smartbox",
+            "org": "Sponsor",
+            "logo_url": "https://media.licdn.com/dms/image/v2/C4D0BAQG9jNesP_Vllw/company-logo_200_200/company-logo_200_200/0/1630559422052?e=1762992000&v=beta&t=HDKahCosh2w-bBFuOkuvKf1wfu-8382hIwU-9LU3aGI",
+            "url": "https://thinksmartbox.com"
+        },
+        {
+            "name": "University of Bristol",
+            "org": "Sponsor",
+            "logo_url": "https://jobs.opensafely.org/uploads/org_logos/uob.png",
+            "url": "https://www.bristol.ac.uk"
+        },
+    ]
+    partners = [
+           {
+            "name": "senmag robotics",
+            "org": "Partner",
+            "logo_url": "https://media.licdn.com/dms/image/v2/C4E0BAQGFXir39Y3TCw/company-logo_200_200/company-logo_200_200/0/1630636150687?e=2147483647&v=beta&t=Hy27NFKr_fxl9lCYJZJlgH_LVfvCo6fkctUkeIyU6nM",
+            "url": "https://www.senmag.com"
+        },
     ]
     return templates.TemplateResponse(
         "partners.html",
-        {"request": request, "page": "partners", "partners": partners},
+        {"request": request, "page": "partners", "organisers": organisers, "sponsors": sponsors, "partners": partners},
     )
 
-@app.get("/philosophy", response_class=HTMLResponse)
-def philosophy(request: Request):
+@app.get("/approach", response_class=HTMLResponse)
+def approach(request: Request):
     return templates.TemplateResponse(
-        "philosophy.html",
-        {"request": request, "page": "philosophy"},
+        "approach.html",
+        {"request": request, "page": "approach"},
     )
 
-@app.get("/resources", response_class=HTMLResponse)
-def resources(request: Request):
+@app.get("/about", response_class=HTMLResponse)
+def about(request: Request):
     return templates.TemplateResponse(
-        "resources.html",
-        {"request": request, "page": "resources"},
+        "about.html",
+        {"request": request, "page": "about"},
+    )
+
+@app.get("/faq", response_class=HTMLResponse)
+def faq(request: Request):
+    return templates.TemplateResponse(
+        "faq.html",
+        {"request": request, "page": "faq"},
     )
 
 @app.get("/privacy", response_class=HTMLResponse)
