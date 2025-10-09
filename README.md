@@ -22,3 +22,4 @@ source venv/bin/activate
 `uvicorn app.main:app --reload`
 
 4. You should see output in your terminal tellin you that the server is running. Open a browser and go to `http://127.0.0.1:8000` to see the web app.
+

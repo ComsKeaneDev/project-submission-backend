@@ -7,7 +7,7 @@
   <h2 id="partners-heading">Organisers</h2>
 
   <div class="partners__grid">
-    {% for p in partners %}
+    {% for p in organisers %}
       {% set name=p.name %}
       {% set org=p.org %}
       {% set logo=p.logo_url %}
@@ -16,8 +16,38 @@
       {% set href=p.url %}
       {% include "partials/_partner_card.html" %}
     {% else %}
-      <p>No partners to show yet.</p>
+      <p>No organisers to show yet.</p>
     {% endfor %}
   </div>
+
+  <h2>Sponsors</h2>
+    <div class="partners__grid">
+    {% for p in sponsors %}
+        {% set name=p.name %}
+        {% set org=p.org %}
+        {% set logo=p.logo_url %}
+        {% set photo=p.photo_url %}
+        {% set desc=p.description %}
+        {% set href=p.url %}
+        {% include "partials/_partner_card.html" %}
+    {% else %}
+        <p>No sponsors to show yet.</p>
+    {% endfor %}
+    </div>
+
+    <h2>Partners</h2>
+    <div class="partners__grid">
+    {% for p in partners %}
+        {% set name=p.name %}
+        {% set org=p.org %}
+        {% set logo=p.logo_url %}
+        {% set photo=p.photo_url %}
+        {% set desc=p.description %}
+        {% set href=p.url %}
+        {% include "partials/_partner_card.html" %}
+    {% else %}
+        <p>No partners to show yet.</p>
+    {% endfor %}
+    </div>
 </section>
 {% endblock %}

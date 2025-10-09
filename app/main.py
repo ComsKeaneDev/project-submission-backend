@@ -39,7 +39,7 @@ def schedule(request: Request):
 
 @app.get("/partners", response_class=HTMLResponse)
 def partners(request: Request):
-    partners = [
+    organisers = [
         {
             "name": "Kyle Keane",
             "org": "University of Bristol",
@@ -47,24 +47,90 @@ def partners(request: Request):
             "photo_url": "https://media.licdn.com/dms/image/v2/D4E03AQFDCm-L1a8u1g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1730579720100?e=1761782400&v=beta&t=rWOBMlsEk34b70TVaASj6yoQFe0IXbiesIkhmtkcDTI",
             "description": "Accessible tech researcher",
             "url": "https://www.bristol.ac.uk/people/person/Kyle-Keane-3b30cecb-458f-429d-9686-1a6ef5bc6518/"
+        },
+        {
+            "name": "Dixant Pant",
+            "org": "University of Bristol",
+            "logo_url": "https://jobs.opensafely.org/uploads/org_logos/uob.png",
+            "photo_url": "https://media.licdn.com/dms/image/v2/D4E03AQGiw1BQAsaPMg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1686739668271?e=1762992000&v=beta&t=_8gWbv3jr5L05P7mdcr9uZW0tOFGyMSPWgjBsXTL5mA",
+            "description": "Final year Computer Science BS student",
+        }
+    ]
+    sponsors = [
+        {
+            "name": "GitHub",
+            "org": "Sponsor",
+            "logo_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            "url": "https://github.com",
+            "description": "Title sponsor and keynote speaker."
+        },
+        {
+            "name": "Smartbox",
+            "org": "Sponsor",
+            "logo_url": "https://media.licdn.com/dms/image/v2/C4D0BAQG9jNesP_Vllw/company-logo_200_200/company-logo_200_200/0/1630559422052?e=1762992000&v=beta&t=HDKahCosh2w-bBFuOkuvKf1wfu-8382hIwU-9LU3aGI",
+            "url": "https://thinksmartbox.com",
+            "description": "Providing expertise in assistive technology and technical mentors"
+        },
+        {
+            "name": "University of Bristol",
+            "org": "Sponsor",
+            "logo_url": "https://jobs.opensafely.org/uploads/org_logos/uob.png",
+            "url": "https://www.bristol.ac.uk"
+        },
+    ]
+    partners = [
+        {
+            "name": "Senmag Robotics",
+            "org": "Partner",
+            "logo_url": "https://media.licdn.com/dms/image/v2/C4E0BAQGFXir39Y3TCw/company-logo_200_200/company-logo_200_200/0/1630636150687?e=2147483647&v=beta&t=Hy27NFKr_fxl9lCYJZJlgH_LVfvCo6fkctUkeIyU6nM",
+            "url": "https://www.senmag.com",
+            "description": "Providing expertise in assistive technology and technical mentors"
+        },
+        {
+            "name": "Microsoft Inclusive Tech Lab",
+            "org": "Partner",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2048px-Microsoft_logo.svg.png",
+            "url": "https://www.microsoft.com/en-us/inclusive-tech-lab",
+            "description": "Providing expertise in assistive technology and technical mentors"
         }
     ]
     return templates.TemplateResponse(
         "partners.html",
-        {"request": request, "page": "partners", "partners": partners},
+        {"request": request, "page": "partners", "organisers": organisers, "sponsors": sponsors, "partners": partners},
+    )
+
+@app.get("/approach", response_class=HTMLResponse)
+def approach(request: Request):
+    return templates.TemplateResponse(
+        "approach.html",
+        {"request": request, "page": "approach"},
+    )
+
+@app.get("/what-to-expect", response_class=HTMLResponse)
+def what_to_expect(request: Request):
+    return templates.TemplateResponse(
+        "what-to-expect.html",
+        {"request": request, "page": "what-to-expect"},
+    )
+
+@app.get("/faq", response_class=HTMLResponse)
+def faq(request: Request):
+    return templates.TemplateResponse(
+        "faq.html",
+        {"request": request, "page": "faq"},
     )
 
 @app.get("/privacy", response_class=HTMLResponse)
 def privacy(request: Request):
     return templates.TemplateResponse(
-        "privacy.html", 
+        "privacy.html",
         {"request": request, "page": "privacy"}
     )
 
 @app.get("/confirmation", response_class=HTMLResponse)
 def confirmation(request: Request):
     return templates.TemplateResponse(
-        "confirmation.html", 
+        "confirmation.html",
         {"request": request, "page": "confirmation"}
     )
 
@@ -75,7 +141,7 @@ def register(
     last_name: str = Form(...),
     email: str = Form(...),
     is_student: Optional[str] = Form(None),
-    year_of_study: Optional[str] = Form(None), 
+    year_of_study: Optional[str] = Form(None),
     course_name: Optional[str] = Form(None),
     additional_info: Optional[str] = Form(None),
     mailing_list_consent: Optional[str] = Form(None),
@@ -113,10 +179,10 @@ def register(
     with get_conn() as conn:
         cur = conn.cursor()
         is_pg = hasattr(cur, "mogrify")
-        
+
         query = "SELECT 1 FROM registrations WHERE email = %s" if is_pg else "SELECT 1 FROM registrations WHERE email = ?"
         cur.execute(query, (email_norm,))
-        
+
         if cur.fetchone():
             form_data = { "first_name": first_name_norm, "last_name": last_name_norm, "email": email_norm, "is_student": is_student, "year_of_study": year_of_study, "course_name": course_name_norm, "additional_info": additional_info_norm, "mailing_list_consent": mailing_list_consent }
             return templates.TemplateResponse("index.html", {"request": request, "error": "Email already registered", "form_data": form_data, "page": "home"})
@@ -125,5 +191,5 @@ def register(
         params = (first_name_norm, last_name_norm, email_norm, year_of_study_int, course_name_norm, additional_info_norm, mailing_list_bool)
         cur.execute(insert_query, params)
         conn.commit()
-            
+
     return RedirectResponse(url="/confirmation", status_code=303)
