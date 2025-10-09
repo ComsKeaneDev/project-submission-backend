@@ -61,14 +61,15 @@ def partners(request: Request):
             "name": "GitHub",
             "org": "Sponsor",
             "logo_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
-            "url": "https://github.com"
-
+            "url": "https://github.com",
+            "description": "Title sponsor and keynote speaker."
         },
         {
             "name": "Smartbox",
             "org": "Sponsor",
             "logo_url": "https://media.licdn.com/dms/image/v2/C4D0BAQG9jNesP_Vllw/company-logo_200_200/company-logo_200_200/0/1630559422052?e=1762992000&v=beta&t=HDKahCosh2w-bBFuOkuvKf1wfu-8382hIwU-9LU3aGI",
-            "url": "https://thinksmartbox.com"
+            "url": "https://thinksmartbox.com",
+            "description": "Providing expertise in assistive technology and technical mentors"
         },
         {
             "name": "University of Bristol",
@@ -78,12 +79,20 @@ def partners(request: Request):
         },
     ]
     partners = [
-           {
-            "name": "senmag robotics",
+        {
+            "name": "Senmag Robotics",
             "org": "Partner",
             "logo_url": "https://media.licdn.com/dms/image/v2/C4E0BAQGFXir39Y3TCw/company-logo_200_200/company-logo_200_200/0/1630636150687?e=2147483647&v=beta&t=Hy27NFKr_fxl9lCYJZJlgH_LVfvCo6fkctUkeIyU6nM",
-            "url": "https://www.senmag.com"
+            "url": "https://www.senmag.com",
+            "description": "Providing expertise in assistive technology and technical mentors"
         },
+        {
+            "name": "Microsoft Inclusive Tech Lab",
+            "org": "Partner",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2048px-Microsoft_logo.svg.png",
+            "url": "https://www.microsoft.com/en-us/inclusive-tech-lab",
+            "description": "Providing expertise in assistive technology and technical mentors"
+        }
     ]
     return templates.TemplateResponse(
         "partners.html",
@@ -97,11 +106,11 @@ def approach(request: Request):
         {"request": request, "page": "approach"},
     )
 
-@app.get("/about", response_class=HTMLResponse)
-def about(request: Request):
+@app.get("/what-to-expect", response_class=HTMLResponse)
+def what_to_expect(request: Request):
     return templates.TemplateResponse(
-        "about.html",
-        {"request": request, "page": "about"},
+        "what-to-expect.html",
+        {"request": request, "page": "what-to-expect"},
     )
 
 @app.get("/faq", response_class=HTMLResponse)
