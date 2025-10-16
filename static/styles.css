@@ -401,3 +401,42 @@ footer a:focus-visible {
     color: var(--accent);
     text-decoration: underline;
 }
+
+/* --- New Two-Column Layout Styles --- */
+
+.main-content-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 1rem auto 3rem; /* Adjusted top margin */
+  padding: 0 1rem;
+}
+
+.poster-column {
+  flex: 1;
+  position: sticky;
+  top: 2rem;
+}
+
+.poster-column img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.registration-form {
+  flex: 1.2; /* Give form slightly more space */
+  max-width: 100%;
+  text-align: left;
+}
+
+.registration-form h2,
+.registration-form p {
+  text-align: left;
+}
+
+.signup {
+  margin: 2rem 0 0; /* Add space above the form fields */
+}
+
