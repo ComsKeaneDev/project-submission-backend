@@ -18,8 +18,11 @@
 <div class="main-content-container">
 
     <div class="poster-column">
-        <a href="{{ url_for('static', path='event-poster.png') }}" target="_blank">
-            <img src="{{ url_for('static', path='event-poster.png') }}" alt="Access Bristol Event Poster">
+        <a href="{{ url_for('static', path='event-poster.png') }}" 
+        target="_blank" 
+        aria-label="View the full Access Bristol event poster (opens in a new tab)">
+            <img src="{{ url_for('static', path='event-poster.png') }}" 
+                alt="Access Bristol Event Poster">
         </a>
     </div>
 
