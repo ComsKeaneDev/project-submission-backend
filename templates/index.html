@@ -6,7 +6,7 @@
 <header class="hero">
     <h1>Access Bristol</h1>
 
-<section aria-labelledby="schedule-heading">
+<section aria-labelledby="schedule-heading" style="margin-bottom: 2rem;">
     <p class="location">8-9th November, Bristol</p>
     <a href="/schedule" class="button-secondary">
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
@@ -14,7 +14,8 @@
     </a>
 </section>
 
-<p>Please register your interest to join. We'll follow up with more details soon!</p>
+<h2 style="margin-bottom: 0.25rem;">Register Your Interest</h2>
+<p>Complete the form below and we'll be in touch with full registration details, including how to request accessibility support.</p>
 {% if success %}<p class="flash success" role="status">{{ success }}</p>{% endif %}
 {% if error %}<p class="flash error" role="alert">{{ error }}</p>{% endif %}
 <form action="/register" method="POST" class="signup">
