@@ -1,10 +1,11 @@
 from pathlib import Path
 import re
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Request, Form, Depends
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from typing import Optional
+import time
 
 from .db import init_db, get_conn
 
@@ -17,6 +18,16 @@ app.mount(
 
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
+# --- CORRECTED CODE: Dependency to inject common context ---
+def get_context(request: Request):
+    """
+    Returns a dictionary with common context variables for templates.
+    """
+    return {
+        "request": request,
+        "timestamp": int(time.time())
+    }
+
 EMAIL_RE = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
 
 @app.on_event("startup")
@@ -24,21 +35,17 @@ def on_startup():
     init_db()
 
 @app.get("/", response_class=HTMLResponse)
-def home(request: Request, success: str | None = None, error: str | None = None):
-    return templates.TemplateResponse(
-        "index.html",
-        {"request": request, "success": success, "error": error, "page": "home", "form_data": {}},
-    )
+def home(context: dict = Depends(get_context), success: str | None = None, error: str | None = None):
+    context.update(success=success, error=error, page="home", form_data={})
+    return templates.TemplateResponse("index.html", context)
 
 @app.get("/schedule", response_class=HTMLResponse)
-def schedule(request: Request):
-    return templates.TemplateResponse(
-        "schedule.html",
-        {"request": request, "page": "schedule"},
-    )
+def schedule(context: dict = Depends(get_context)):
+    context.update(page="schedule")
+    return templates.TemplateResponse("schedule.html", context)
 
 @app.get("/partners", response_class=HTMLResponse)
-def partners(request: Request):
+def partners(context: dict = Depends(get_context)):
     organisers = [
         {
             "name": "Kyle Keane",
@@ -54,6 +61,7 @@ def partners(request: Request):
             "logo_url": "https://jobs.opensafely.org/uploads/org_logos/uob.png",
             "photo_url": "https://media.licdn.com/dms/image/v2/D4E03AQGiw1BQAsaPMg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1686739668271?e=1762992000&v=beta&t=_8gWbv3jr5L05P7mdcr9uZW0tOFGyMSPWgjBsXTL5mA",
             "description": "Final year Computer Science BS student",
+            "url": "https://www.linkedin.com/in/dixant/"
         }
     ]
     sponsors = [
@@ -78,12 +86,12 @@ def partners(request: Request):
             "url": "https://www.bristol.ac.uk"
         },
     ]
-    partners = [
+    partners_list = [
         {
             "name": "Senmag Robotics",
             "org": "Partner",
             "logo_url": "https://media.licdn.com/dms/image/v2/C4E0BAQGFXir39Y3TCw/company-logo_200_200/company-logo_200_200/0/1630636150687?e=2147483647&v=beta&t=Hy27NFKr_fxl9lCYJZJlgH_LVfvCo6fkctUkeIyU6nM",
-            "url": "https://www.senmag.com",
+            "url": "https://senmag-haptics.com",
             "description": "Providing expertise in assistive technology and technical mentors"
         },
         {
@@ -94,45 +102,33 @@ def partners(request: Request):
             "description": "Providing expertise in assistive technology and technical mentors"
         }
     ]
-    return templates.TemplateResponse(
-        "partners.html",
-        {"request": request, "page": "partners", "organisers": organisers, "sponsors": sponsors, "partners": partners},
-    )
+    context.update(page="partners", organisers=organisers, sponsors=sponsors, partners=partners_list)
+    return templates.TemplateResponse("partners.html", context)
 
 @app.get("/approach", response_class=HTMLResponse)
-def approach(request: Request):
-    return templates.TemplateResponse(
-        "approach.html",
-        {"request": request, "page": "approach"},
-    )
+def approach(context: dict = Depends(get_context)):
+    context.update(page="approach")
+    return templates.TemplateResponse("approach.html", context)
 
 @app.get("/what-to-expect", response_class=HTMLResponse)
-def what_to_expect(request: Request):
-    return templates.TemplateResponse(
-        "what-to-expect.html",
-        {"request": request, "page": "what-to-expect"},
-    )
+def what_to_expect(context: dict = Depends(get_context)):
+    context.update(page="what-to-expect")
+    return templates.TemplateResponse("what-to-expect.html", context)
 
 @app.get("/faq", response_class=HTMLResponse)
-def faq(request: Request):
-    return templates.TemplateResponse(
-        "faq.html",
-        {"request": request, "page": "faq"},
-    )
+def faq(context: dict = Depends(get_context)):
+    context.update(page="faq")
+    return templates.TemplateResponse("faq.html", context)
 
 @app.get("/privacy", response_class=HTMLResponse)
-def privacy(request: Request):
-    return templates.TemplateResponse(
-        "privacy.html",
-        {"request": request, "page": "privacy"}
-    )
+def privacy(context: dict = Depends(get_context)):
+    context.update(page="privacy")
+    return templates.TemplateResponse("privacy.html", context)
 
 @app.get("/confirmation", response_class=HTMLResponse)
-def confirmation(request: Request):
-    return templates.TemplateResponse(
-        "confirmation.html",
-        {"request": request, "page": "confirmation"}
-    )
+def confirmation(context: dict = Depends(get_context)):
+    context.update(page="confirmation")
+    return templates.TemplateResponse("confirmation.html", context)
 
 @app.post("/register")
 def register(
@@ -147,7 +143,6 @@ def register(
     mailing_list_consent: Optional[str] = Form(None),
     gdpr_consent: Optional[str] = Form(None)
 ):
-    # This is the server-side check
     if not gdpr_consent:
         form_data = {
             "first_name": first_name, "last_name": last_name, "email": email,
@@ -155,10 +150,15 @@ def register(
             "course_name": course_name, "additional_info": additional_info,
             "mailing_list_consent": mailing_list_consent
         }
-        return templates.TemplateResponse(
-            "index.html",
-            {"request": request, "error": "You must agree to the terms to register.", "form_data": form_data, "page": "home"}
-        )
+        # Manually create the context for the error response
+        context = {
+            "request": request,
+            "timestamp": int(time.time()),
+            "error": "You must agree to the terms to register.",
+            "form_data": form_data,
+            "page": "home"
+        }
+        return templates.TemplateResponse("index.html", context)
 
     if not EMAIL_RE.match(email):
         return RedirectResponse("/?error=Invalid%20email", status_code=303)
@@ -185,7 +185,15 @@ def register(
 
         if cur.fetchone():
             form_data = { "first_name": first_name_norm, "last_name": last_name_norm, "email": email_norm, "is_student": is_student, "year_of_study": year_of_study, "course_name": course_name_norm, "additional_info": additional_info_norm, "mailing_list_consent": mailing_list_consent }
-            return templates.TemplateResponse("index.html", {"request": request, "error": "Email already registered", "form_data": form_data, "page": "home"})
+            # Manually create context for the error response
+            context = {
+                "request": request,
+                "timestamp": int(time.time()),
+                "error": "Email already registered",
+                "form_data": form_data,
+                "page": "home"
+            }
+            return templates.TemplateResponse("index.html", context)
 
         insert_query = "INSERT INTO registrations (first_name, last_name, email, year_of_study, course_name, additional_info, mailing_list_consent) VALUES (%s, %s, %s, %s, %s, %s, %s)" if is_pg else "INSERT INTO registrations (first_name, last_name, email, year_of_study, course_name, additional_info, mailing_list_consent) VALUES (?, ?, ?, ?, ?, ?, ?)"
         params = (first_name_norm, last_name_norm, email_norm, year_of_study_int, course_name_norm, additional_info_norm, mailing_list_bool)
