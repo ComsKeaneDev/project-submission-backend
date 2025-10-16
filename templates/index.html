@@ -6,91 +6,97 @@
 <header class="hero">
     <h1>Access Bristol</h1>
 
-<section aria-labelledby="schedule-heading" style="margin-bottom: 2rem;">
-    <p class="location">8-9th November, Bristol</p>
-    <a href="/schedule" class="button-secondary">
-        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
-        <span>View Schedule</span>
-    </a>
-</section>
-
-<h2 style="margin-bottom: 0.25rem;">Register Your Interest</h2>
-<p>Complete the form below and we'll be in touch with full registration details, including how to request accessibility support.</p>
-{% if success %}<p class="flash success" role="status">{{ success }}</p>{% endif %}
-{% if error %}<p class="flash error" role="alert">{{ error }}</p>{% endif %}
-<form action="/register" method="POST" class="signup">
-    <div class="form-group">
-        <label for="first_name">First name</label>
-        <input type="text" id="first_name" name="first_name" value="{{ form_data.first_name if form_data else '' }}" required />
-    </div>
-    <div class="form-group">
-        <label for="last_name">Last name</label>
-        <input type="text" id="last_name" name="last_name" value="{{ form_data.last_name if form_data else '' }}" required />
-    </div>
-    <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="email" id="email" name="email" placeholder="name@example.com" value="{{ form_data.email if form_data else '' }}" required />
-    </div>
-    
-    <div id="student_fields_container" class="form-group">
-        <div class="checkbox-container">
-            <input type="checkbox" id="is_student" name="is_student" value="true" onchange="toggleStudentFields()" {% if form_data.is_student %}checked{% endif %}>
-            <label for="is_student">Are you a student?</label>
-        </div>
-        <div id="student_fields" style="display: none;">
-            <div class="form-group">
-                <label for="year_of_study">Year of study</label>
-                <input type="number" id="year_of_study" name="year_of_study" placeholder="e.g., 1, 2, 3" min="1" max="10" value="{{ form_data.year_of_study if form_data else '' }}" />
-            </div>
-            <div class="form-group">
-                <label for="course_name">Course name</label>
-                <input type="text" id="course_name" name="course_name" placeholder="e.g., BSc Computer Science" value="{{ form_data.course_name if form_data else '' }}" />
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="additional_info">Is there anything you want us to know about you and your interest to participate?</label>
-        <textarea id="additional_info" name="additional_info" rows="4">{{ form_data.additional_info if form_data else '' }}</textarea>
-    </div>
-
-    <div class="form-group">
-        <div class="checkbox-container">
-            <input type="checkbox" id="mailing_list_consent" name="mailing_list_consent" value="true" {% if form_data.mailing_list_consent %}checked{% endif %}>
-            <label for="mailing_list_consent">Add me to the mailing list for future events.</label>
-        </div>
-    </div>
-
-    <div class="form-group gdpr-consent">
-        <div class="checkbox-container">
-            <input type="checkbox" id="gdpr_consent" name="gdpr_consent" required>
-            <label for="gdpr_consent">I have read and agree to the <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</label>
-        </div>
-        <p class="small">By submitting this form, I consent to having my personal data collected and stored for the purpose of organizing and communicating about this event.</p>
-    </div>
-
-    <button type="submit">Register</button>
-</form>
-
-<script>
-    function toggleStudentFields() {
-        var checkbox = document.getElementById('is_student');
-        var studentFields = document.getElementById('student_fields');
-        var yearOfStudy = document.getElementById('year_of_study');
-        var courseName = document.getElementById('course_name');
-
-        if (checkbox.checked) {
-            studentFields.style.display = 'block';
-            yearOfStudy.required = true;
-            courseName.required = true;
-        } else {
-            studentFields.style.display = 'none';
-            yearOfStudy.required = false;
-            courseName.required = false;
-        }
-    }
-    // Initialize the fields on page load
-    toggleStudentFields();
-</script>
+    <section aria-labelledby="schedule-heading" style="margin-bottom: 2rem;">
+        <p class="location">8-9th November, Bristol</p>
+        <a href="/schedule" class="button-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+            <span>View Schedule</span>
+        </a>
+    </section>
 </header>
+
+<div class="main-content-container">
+
+    <div class="poster-column">
+        <img src="{{ url_for('static', path='event-poster.png') }}" alt="Access Bristol Event Poster">
+    </div>
+
+    <section class="registration-form">
+        <h2 style="margin-bottom: 0.25rem;">Register Your Interest</h2>
+        <p>Complete the form below and we'll be in touch with full registration details, including how to request accessibility support.</p>
+
+        {% if success %}<p class="flash success" role="status">{{ success }}</p>{% endif %}
+        {% if error %}<p class="flash error" role="alert">{{ error }}</p>{% endif %}
+        
+        <form action="/register" method="POST" class="signup">
+            <div class="form-group">
+                <label for="first_name">First name</label>
+                <input type="text" id="first_name" name="first_name" value="{{ form_data.first_name if form_data else '' }}" required />
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last name</label>
+                <input type="text" id="last_name" name="last_name" value="{{ form_data.last_name if form_data else '' }}" required />
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" placeholder="name@example.com" value="{{ form_data.email if form_data else '' }}" required />
+            </div>
+            <div id="student_fields_container" class="form-group">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="is_student" name="is_student" value="true" onchange="toggleStudentFields()" {% if form_data.is_student %}checked{% endif %}>
+                    <label for="is_student">Are you a student?</label>
+                </div>
+                <div id="student_fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="year_of_study">Year of study</label>
+                        <input type="number" id="year_of_study" name="year_of_study" placeholder="e.g., 1, 2, 3" min="1" max="10" value="{{ form_data.year_of_study if form_data else '' }}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="course_name">Course name</label>
+                        <input type="text" id="course_name" name="course_name" placeholder="e.g., BSc Computer Science" value="{{ form_data.course_name if form_data else '' }}" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="additional_info">Is there anything you want us to know about you and your interest to participate?</label>
+                <textarea id="additional_info" name="additional_info" rows="4">{{ form_data.additional_info if form_data else '' }}</textarea>
+            </div>
+            <div class="form-group">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="mailing_list_consent" name="mailing_list_consent" value="true" {% if form_data.mailing_list_consent %}checked{% endif %}>
+                    <label for="mailing_list_consent">Add me to the mailing list for future events.</label>
+                </div>
+            </div>
+            <div class="form-group gdpr-consent">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="gdpr_consent" name="gdpr_consent" required>
+                    <label for="gdpr_consent">I have read and agree to the <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</label>
+                </div>
+                <p class="small">By submitting this form, I consent to having my personal data collected and stored for the purpose of organizing and communicating about this event.</p>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+
+        <script>
+            function toggleStudentFields() {
+                var checkbox = document.getElementById('is_student');
+                var studentFields = document.getElementById('student_fields');
+                var yearOfStudy = document.getElementById('year_of_study');
+                var courseName = document.getElementById('course_name');
+
+                if (checkbox.checked) {
+                    studentFields.style.display = 'block';
+                    yearOfStudy.required = true;
+                    courseName.required = true;
+                } else {
+                    studentFields.style.display = 'none';
+                    yearOfStudy.required = false;
+                    courseName.required = false;
+                }
+            }
+            // Initialize the fields on page load
+            toggleStudentFields();
+        </script>
+    </section>
+</div>
 {% endblock %}
