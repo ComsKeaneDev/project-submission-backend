@@ -46,11 +46,15 @@ def schedule(context: dict = Depends(get_context)):
 
 @app.get("/partners", response_class=HTMLResponse)
 def partners(context: dict = Depends(get_context)):
+    uob_logo_url = "https://jobs.opensafely.org/uploads/org_logos/uob.png"
+    uob_alt_text = "University of Bristol logo with the university crest and name."
+    
     organisers = [
         {
             "name": "Kyle Keane",
             "org": "University of Bristol",
-            "logo_url": "https://jobs.opensafely.org/uploads/org_logos/uob.png",
+            "logo_url": uob_logo_url,
+            "org_logo_alt": uob_alt_text,
             "photo_url": "https://media.licdn.com/dms/image/v2/D4E03AQFDCm-L1a8u1g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1730579720100?e=1761782400&v=beta&t=rWOBMlsEk34b70TVaASj6yoQFe0IXbiesIkhmtkcDTI",
             "description": "Accessible tech researcher",
             "url": "https://www.bristol.ac.uk/people/person/Kyle-Keane-3b30cecb-458f-429d-9686-1a6ef5bc6518/"
@@ -58,7 +62,8 @@ def partners(context: dict = Depends(get_context)):
         {
             "name": "Dixant Pant",
             "org": "University of Bristol",
-            "logo_url": "https://jobs.opensafely.org/uploads/org_logos/uob.png",
+            "logo_url": uob_logo_url,
+            "org_logo_alt": uob_alt_text,
             "photo_url": "https://media.licdn.com/dms/image/v2/D4E03AQGiw1BQAsaPMg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1686739668271?e=1762992000&v=beta&t=_8gWbv3jr5L05P7mdcr9uZW0tOFGyMSPWgjBsXTL5mA",
             "description": "Final year Computer Science BS student",
             "url": "https://www.linkedin.com/in/dixant/"
@@ -69,6 +74,7 @@ def partners(context: dict = Depends(get_context)):
             "name": "GitHub",
             "org": "Sponsor",
             "logo_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            "alt_text": "The GitHub logo, showing the white 'Octocat' silhouette.",
             "url": "https://github.com",
             "description": "Title sponsor and keynote speaker."
         },
@@ -76,13 +82,15 @@ def partners(context: dict = Depends(get_context)):
             "name": "Smartbox",
             "org": "Sponsor",
             "logo_url": "https://media.licdn.com/dms/image/v2/C4D0BAQG9jNesP_Vllw/company-logo_200_200/company-logo_200_200/0/1630559422052?e=1762992000&v=beta&t=HDKahCosh2w-bBFuOkuvKf1wfu-8382hIwU-9LU3aGI",
+            "alt_text": "Smartbox logo, a colorful speech bubble with the company name.",
             "url": "https://thinksmartbox.com",
             "description": "Providing expertise in assistive technology and technical mentors"
         },
         {
             "name": "University of Bristol",
             "org": "Sponsor",
-            "logo_url": "https://jobs.opensafely.org/uploads/org_logos/uob.png",
+            "logo_url": uob_logo_url,
+            "alt_text": uob_alt_text,
             "url": "https://www.bristol.ac.uk"
         },
     ]
@@ -91,6 +99,7 @@ def partners(context: dict = Depends(get_context)):
             "name": "Senmag Robotics",
             "org": "Partner",
             "logo_url": "https://media.licdn.com/dms/image/v2/C4E0BAQGFXir39Y3TCw/company-logo_200_200/company-logo_200_200/0/1630636150687?e=2147483647&v=beta&t=Hy27NFKr_fxl9lCYJZJlgH_LVfvCo6fkctUkeIyU6nM",
+            "alt_text": "Senmag Robotics logo, a stylized orange 'S' with a circle.",
             "url": "https://senmag-haptics.com",
             "description": "Providing expertise in assistive technology and technical mentors"
         },
@@ -98,7 +107,32 @@ def partners(context: dict = Depends(get_context)):
             "name": "Microsoft Inclusive Tech Lab",
             "org": "Partner",
             "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2048px-Microsoft_logo.svg.png",
+            "alt_text": "Microsoft logo, showing four colored squares: red, green, blue, and yellow.",
             "url": "https://www.microsoft.com/en-us/inclusive-tech-lab",
+            "description": "Providing expertise in assistive technology and technical mentors"
+        },
+        {
+            "name": "Hodr",
+            "org": "Partner",
+            "logo_url": "/static/HodrEngineLogo.jpeg",
+            "alt_text": "Hodr Engine logo with a blue, rune-like H edged in gold, framed by two gold arrows. The top arrow points right and the bottom points left, set on a dark blue background.",
+            "url": "#",
+            "description": "Providing expertise in assistive technology and technical mentors"
+        },
+        {
+            "name": "Red Nought",
+            "org": "Partner",
+            "logo_url": "/static/RedNoughtLogo.jpeg",
+            "alt_text": "Red Nought logo with a black robot silhouette against four red vertical bars, over the text 'RED NOUGHT' in white and redd.",
+            "url": "#",
+            "description": "Providing expertise in assistive technology and technical mentors"
+        },
+        {
+            "name": "Immersion Sound Studio",
+            "org": "Partner",
+            "logo_url": "https://static.wixstatic.com/media/20c75c_60100a7be2904c6498a72b7f32957b4f~mv2.png/v1/fill/w_284,h_118,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Immersion%20Sound%20Studio%20Logo%20White%20Text.png",
+            "alt_text": "Immersion Sound Studio logo placeholder",
+            "url": "https://www.facebook.com/immersionsoundstudio/",
             "description": "Providing expertise in assistive technology and technical mentors"
         }
     ]
