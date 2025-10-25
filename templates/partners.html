@@ -3,24 +3,9 @@
 {% block title %}Our Partners{% endblock %}
 
 {% block content %}
-<section class="partners" aria-labelledby="partners-heading">
-  <h2 id="partners-heading">Organisers</h2>
+<section class="partners" aria-labelledby="sponsors-heading">
 
-  <div class="partners__grid">
-    {% for p in organisers %}
-      {% set name=p.name %}
-      {% set org=p.org %}
-      {% set logo=p.logo_url %}
-      {% set photo=p.photo_url %}
-      {% set desc=p.description %}
-      {% set href=p.url %}
-      {% include "partials/_partner_card.html" %}
-    {% else %}
-      <p>No organisers to show yet.</p>
-    {% endfor %}
-  </div>
-
-  <h2>Sponsors</h2>
+  <h2 id="sponsors-heading">Sponsors</h2>
     <div class="partners__grid">
     {% for p in sponsors %}
         {% set name=p.name %}
@@ -29,6 +14,7 @@
         {% set photo=p.photo_url %}
         {% set desc=p.description %}
         {% set href=p.url %}
+        {% set alt_text=p.alt_text %}
         {% include "partials/_partner_card.html" %}
     {% else %}
         <p>No sponsors to show yet.</p>
@@ -44,10 +30,28 @@
         {% set photo=p.photo_url %}
         {% set desc=p.description %}
         {% set href=p.url %}
+        {% set alt_text=p.alt_text %}
         {% include "partials/_partner_card.html" %}
     {% else %}
         <p>No partners to show yet.</p>
     {% endfor %}
     </div>
+
+  <h2>Organisers</h2>
+  <div class="partners__grid">
+    {% for p in organisers %}
+      {% set name=p.name %}
+      {% set org=p.org %}
+      {% set logo=p.logo_url %}
+      {% set photo=p.photo_url %}
+      {% set desc=p.description %}
+      {% set href=p.url %}
+      {% set org_logo_alt=p.org_logo_alt %}
+      {% include "partials/_partner_card.html" %}
+    {% else %}
+      <p>No organisers to show yet.</p>
+    {% endfor %}
+  </div>
+
 </section>
 {% endblock %}
