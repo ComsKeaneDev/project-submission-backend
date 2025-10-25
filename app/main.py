@@ -99,7 +99,7 @@ def partners(context: dict = Depends(get_context)):
             "name": "Senmag Robotics",
             "org": "Partner",
             "logo_url": "https://media.licdn.com/dms/image/v2/C4E0BAQGFXir39Y3TCw/company-logo_200_200/company-logo_200_200/0/1630636150687?e=2147483647&v=beta&t=Hy27NFKr_fxl9lCYJZJlgH_LVfvCo6fkctUkeIyU6nM",
-            "alt_text": "Senmag Robotics logo, a stylized orange 'S' with a circle.",
+            "alt_text": "Senmag Robotics logo, a stylized 'S' with a circle.",
             "url": "https://senmag-haptics.com",
             "description": "Providing expertise in assistive technology and technical mentors"
         },
@@ -116,23 +116,15 @@ def partners(context: dict = Depends(get_context)):
             "org": "Partner",
             "logo_url": "/static/HodrEngineLogo.jpeg",
             "alt_text": "Hodr Engine logo with a blue, rune-like H edged in gold, framed by two gold arrows. The top arrow points right and the bottom points left, set on a dark blue background.",
-            "url": "#",
+            "url": "https://www.hodrengine.com",
             "description": "Providing expertise in assistive technology and technical mentors"
         },
         {
             "name": "Red Nought",
             "org": "Partner",
             "logo_url": "/static/RedNoughtLogo.jpeg",
-            "alt_text": "Red Nought logo with a black robot silhouette against four red vertical bars, over the text 'RED NOUGHT' in white and redd.",
-            "url": "#",
-            "description": "Providing expertise in assistive technology and technical mentors"
-        },
-        {
-            "name": "Immersion Sound Studio",
-            "org": "Partner",
-            "logo_url": "https://static.wixstatic.com/media/20c75c_60100a7be2904c6498a72b7f32957b4f~mv2.png/v1/fill/w_284,h_118,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Immersion%20Sound%20Studio%20Logo%20White%20Text.png",
-            "alt_text": "Immersion Sound Studio logo placeholder",
-            "url": "https://www.facebook.com/immersionsoundstudio/",
+            "alt_text": "Red Nought logo with a black robot silhouette against four red vertical bars, over the text 'RED NOUGHT' in white.",
+            "url": "https://www.rednought.com",
             "description": "Providing expertise in assistive technology and technical mentors"
         }
     ]
