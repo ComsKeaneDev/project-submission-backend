@@ -56,7 +56,7 @@ def partners(context: dict = Depends(get_context)):
             "logo_url": uob_logo_url,
             "org_logo_alt": uob_alt_text,
             "photo_url": "https://media.licdn.com/dms/image/v2/D4E03AQFDCm-L1a8u1g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1730579720100?e=1761782400&v=beta&t=rWOBMlsEk34b70TVaASj6yoQFe0IXbiesIkhmtkcDTI",
-            "description": "Accessible tech researcher",
+            "description": "Senior Lecturer in Assistive Technologies",
             "url": "https://www.bristol.ac.uk/people/person/Kyle-Keane-3b30cecb-458f-429d-9686-1a6ef5bc6518/"
         },
         {
@@ -65,7 +65,7 @@ def partners(context: dict = Depends(get_context)):
             "logo_url": uob_logo_url,
             "org_logo_alt": uob_alt_text,
             "photo_url": "https://media.licdn.com/dms/image/v2/D4E03AQGiw1BQAsaPMg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1686739668271?e=1762992000&v=beta&t=_8gWbv3jr5L05P7mdcr9uZW0tOFGyMSPWgjBsXTL5mA",
-            "description": "Final year Computer Science BS student",
+            "description": "Final Year Computer Science BSc Student",
             "url": "https://www.linkedin.com/in/dixant/"
         }
     ]
@@ -125,6 +125,14 @@ def partners(context: dict = Depends(get_context)):
             "logo_url": "/static/RedNoughtLogo.jpeg",
             "alt_text": "Red Nought logo with a black robot silhouette against four red vertical bars, over the text 'RED NOUGHT' in white.",
             "url": "https://www.rednought.com",
+            "description": "Providing expertise in assistive technology and technical mentors"
+        },
+        {
+            "name": "EmpressVR",
+            "org": "Partner",
+            "logo_url": "/static/EmpressVR.jpeg",
+            "alt_text": "EmpressVR logo with a white outline of a crown and the text 'EMPRESSVR' below it, set inside a white circular border against a purple and blue nebula background.",
+            "url": "https://www.empressvr.com/",
             "description": "Providing expertise in assistive technology and technical mentors"
         }
     ]
