@@ -164,6 +164,11 @@ def confirmation(context: dict = Depends(get_context)):
     context.update(page="confirmation")
     return templates.TemplateResponse("confirmation.html", context)
 
+@app.get("/sponsorship", response_class=HTMLResponse, include_in_schema=False)
+def sponsorship(context: dict = Depends(get_context)):
+    context.update(page="sponsorship")
+    return templates.TemplateResponse("sponsorship.html", context)
+
 @app.post("/register")
 def register(
     request: Request,
