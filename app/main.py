@@ -79,6 +79,14 @@ def partners(context: dict = Depends(get_context)):
             "description": "Title sponsor and keynote speaker."
         },
         {
+            "name": "CodeRabbit",
+            "org": "Sponsor",
+            "logo_url": "/static/CodeRabbit.png",
+            "alt_text": "CodeRabbit logo, an illustrated rabbit face wearing glasses.",
+            "url": "https://www.coderabbit.ai/",
+            "description": "Automated software audits and AI code suggestions."
+        },
+        {
             "name": "Smartbox",
             "org": "Sponsor",
             "logo_url": "https://media.licdn.com/dms/image/v2/C4D0BAQG9jNesP_Vllw/company-logo_200_200/company-logo_200_200/0/1630559422052?e=1762992000&v=beta&t=HDKahCosh2w-bBFuOkuvKf1wfu-8382hIwU-9LU3aGI",
