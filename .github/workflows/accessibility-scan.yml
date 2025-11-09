@@ -17,39 +17,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt #
-
-      - name: Start FastAPI server in background
-        run: |
-          # Start uvicorn on 127.0.0.1 port 8000 in the background
-          uvicorn app.main:app --host 127.0.0.1 --port 8000 & #
-          echo "Waiting for server to start..."
-          
-          # Wait for the server to be ready
-          # We'll poll the root URL until it responds
-          curl -fsS --retry 25 --retry-delay 1 --retry-all-errors "http://127.0.0.1:8000/" > /dev/null
-          echo "Server started!"
-
       - name: Run Accessibility Scanner
         uses: github/accessibility-scanner@v2 #
         with:
-          # A list of URLs from your FastAPI app to scan
+          # A list of URLs from your live website to scan
           urls: |
-            http://127.0.0.1:8000/
-            http://127.0.0.1:8000/schedule
-            http://127.0.0.1:8000/partners
-            http://127.0.0.1:8000/approach
-            http://127.0.0.1:8000/what-to-expect
-            http://127.0.0.1:8000/faq
-            http://127.0.0.1:8000/privacy
+            https://accessbristol.org/
+            https://accessbristol.org/schedule
+            https://accessbristol.org/partners
+            https://accessbristol.org/approach
+            https://accessbristol.org/what-to-expect
+            https://accessbristol.org/faq
+            https://accessbristol.org/privacy
           
           # The repo where issues will be filed (your repo)
           repository: comskeanedev/project-submission-backend
@@ -59,4 +38,4 @@ jobs:
           token: ${{ secrets.GH_TOKEN }} #
           
           # A key to cache findings between runs
-          cache_key: cached_accessibility_results
+          cache_key: cached_accessibility_results_prod
