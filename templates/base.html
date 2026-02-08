@@ -4,7 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}?v={{ timestamp }}" /><body>
+    <link rel="stylesheet" href="static/styles.css" />
+</head>
+<body>
 
     <nav class="site-nav" aria-label="Main Navigation" role="navigation">
         <button class="hamburger-menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
@@ -14,7 +16,8 @@
         </button>
 
         <div class="nav-title">
-            {% if page == 'home' %}Register
+            {% if page == 'home' %}Home
+            {% elif page == 'outcomes' %}Event Outcomes
             {% elif page == 'schedule' %}Schedule
             {% elif page == 'partners' %}Our Partners
             {% elif page == 'approach' %}Our Approach
@@ -27,12 +30,13 @@
         </div>
 
         <ul id="nav-links" class="site-nav__list">
-            <li class="site-nav__item"><a class="site-nav__link" href="/" aria-current="{{ 'page' if page == 'home' else 'false' }}">Register</a></li>
-            <li class="site-nav__item"><a class="site-nav__link" href="/schedule" aria-current="{{ 'page' if page == 'schedule' else 'false' }}">Schedule</a></li>
-            <li class="site-nav__item"><a class="site-nav__link" href="/partners" aria-current="{{ 'page' if page == 'partners' else 'false' }}">Our Partners</a></li>
-            <li class="site-nav__item"><a class="site-nav__link" href="/approach" aria-current="{{ 'page' if page == 'approach' else 'false' }}">Our Approach</a></li>
-            <li class="site-nav__item"><a class="site-nav__link" href="/what-to-expect" aria-current="{{ 'page' if page == 'what-to-expect' else 'false' }}">What to Expect</a></li>
-            <li class="site-nav__item"><a class="site-nav__link" href="/faq" aria-current="{{ 'page' if page == 'faq' else 'false' }}">FAQ</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="index.html" aria-current="{{ 'page' if page == 'home' else 'false' }}">Home</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="outcomes.html" aria-current="{{ 'page' if page == 'outcomes' else 'false' }}">Outcomes</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="schedule.html" aria-current="{{ 'page' if page == 'schedule' else 'false' }}">Schedule</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="partners.html" aria-current="{{ 'page' if page == 'partners' else 'false' }}">Our Partners</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="approach.html" aria-current="{{ 'page' if page == 'approach' else 'false' }}">Our Approach</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="what-to-expect.html" aria-current="{{ 'page' if page == 'what-to-expect' else 'false' }}">What to Expect</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="faq.html" aria-current="{{ 'page' if page == 'faq' else 'false' }}">FAQ</a></li>
         </ul>
     </nav>
 
@@ -43,7 +47,7 @@
     </main>
 
     <footer>
-        <a href="/privacy">Privacy Policy</a>
+        <a href="privacy.html">Privacy Policy</a>
     </footer>
 
     <script>
