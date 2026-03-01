@@ -29,4 +29,4 @@ source venv/bin/activate
 1. Edit the files in the `templates/` folder.
 2. Run the build script in the root directory: `python build_site.py`
 3. Push the updated .html files to GitHub
-**GitHub pages deploys the dev branch**
+**GitHub pages deploys the dev branch** 
