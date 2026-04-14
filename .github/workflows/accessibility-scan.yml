@@ -1,0 +1,41 @@
+name: Accessibility Scan
+on:
+  workflow_dispatch: # Allows you to run this manually from the Actions tab
+  pull_request: # Runs on new pull requests
+
+permissions:
+  contents: write # Needed to cache results
+  issues: write # Needed to file issues
+  pull-requests: write # Needed for Copilot to create PRs
+
+jobs:
+  scan:
+    name: Run Accessibility Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Accessibility Scanner
+        uses: github/accessibility-scanner@v2 #
+        with:
+          # A list of URLs from your live website to scan
+          urls: |
+            https://accessbristol.org/
+            https://accessbristol.org/schedule
+            https://accessbristol.org/partners
+            https://accessbristol.org/approach
+            https://accessbristol.org/what-to-expect
+            https://accessbristol.org/faq
+            https://accessbristol.org/privacy
+          
+          # The repo where issues will be filed (your repo)
+          repository: comskeanedev/project-submission-backend
+          
+          # A Personal Access Token (PAT) with write permissions
+          # You must create this secret in your repo settings
+          token: ${{ secrets.GH_TOKEN }} #
+          
+          # A key to cache findings between runs
+          cache_key: cached_accessibility_results_prod

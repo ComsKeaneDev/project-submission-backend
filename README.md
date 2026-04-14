@@ -23,3 +23,10 @@ source venv/bin/activate
 
 4. You should see output in your terminal tellin you that the server is running. Open a browser and go to `http://127.0.0.1:8000` to see the web app.
 
+
+# GitHub Pages
+### Update the site
+1. Edit the files in the `templates/` folder.
+2. Run the build script in the root directory: `python build_site.py`
+3. Push the updated .html files to GitHub
+**GitHub pages deploys the dev branch** 

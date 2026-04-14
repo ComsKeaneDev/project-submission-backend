@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/styles.css" />
+</head>
+<body>
+
+    <nav class="site-nav" aria-label="Main Navigation" role="navigation">
+        <button class="hamburger-menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="nav-title">
+            Event Outcomes
+            
+        </div>
+
+        <ul id="nav-links" class="site-nav__list">
+            <li class="site-nav__item"><a class="site-nav__link" href="index.html" aria-current="false">Home</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="outcomes.html" aria-current="page">Outcomes</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="schedule.html" aria-current="false">Schedule</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="partners.html" aria-current="false">Our Partners</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="approach.html" aria-current="false">Our Approach</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="what-to-expect.html" aria-current="false">What to Expect</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="faq.html" aria-current="false">FAQ</a></li>
+        </ul>
+    </nav>
+
+
+    <main>
+        
+<div class="info">
+    <h1>Event Outcomes</h1>
+    <p>Watch the highlights, project demonstrations, and key talks from Access Bristol.</p>
+
+    <div style="margin-top: 2rem; margin-bottom: 3rem;">
+        <h2>Event Highlights</h2>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                src="https://www.youtube.com/embed/XZGZZ-g1GGQ?si=stGsg2TG-p-dFgeZ" 
+                title="Access Bristol: Event Outcomes & Highlights" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+    
+    <p><em>More videos coming soon!</em></p>
+</div>
+
+    </main>
+
+    <footer>
+        <a href="privacy.html">Privacy Policy</a>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger-menu');
+        const navLinks = document.querySelector('#nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('is-active');
+            navLinks.classList.toggle('is-active');
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+        });
+    </script>
+</body>
+</html>

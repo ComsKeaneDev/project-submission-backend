@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/styles.css" />
+</head>
+<body>
+
+    <nav class="site-nav" aria-label="Main Navigation" role="navigation">
+        <button class="hamburger-menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="nav-title">
+            Home
+            
+        </div>
+
+        <ul id="nav-links" class="site-nav__list">
+            <li class="site-nav__item"><a class="site-nav__link" href="index.html" aria-current="page">Home</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="outcomes.html" aria-current="false">Outcomes</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="schedule.html" aria-current="false">Schedule</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="partners.html" aria-current="false">Our Partners</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="approach.html" aria-current="false">Our Approach</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="what-to-expect.html" aria-current="false">What to Expect</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="faq.html" aria-current="false">FAQ</a></li>
+        </ul>
+    </nav>
+
+
+    <main>
+        
+<header class="hero">
+    <h1>Access Bristol</h1>
+
+    <section aria-labelledby="schedule-heading" style="margin-bottom: 2rem;">
+        <p class="location">8-9th November, Bristol</p>
+        <a href="schedule.html" class="button-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+            <span>View Schedule</span>
+        </a>
+    </section>
+</header>
+
+<div class="main-content-container">
+
+    <div class="poster-column">
+        <a href="static/event-poster.png" 
+        target="_blank" 
+        aria-label="View the full Access Bristol event poster (opens in a new tab)">
+            <img src="static/event-poster.png" 
+                alt="Access Bristol Event Poster">
+        </a>
+    </div>
+
+    <section class="registration-form" style="text-align: center; padding: 4rem 2rem;">
+        <h2 style="margin-bottom: 1rem;">Thank you for a great event!</h2>
+        <p style="font-size: 1.2rem;">Registration is now closed.</p>
+        <p>We have uploaded videos and highlights from the event.</p>
+        <br>
+        <a href="outcomes.html" class="button-secondary" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <span>Watch Event Outcomes</span>
+        </a>
+    </section>
+</div>
+
+    </main>
+
+    <footer>
+        <a href="privacy.html">Privacy Policy</a>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger-menu');
+        const navLinks = document.querySelector('#nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('is-active');
+            navLinks.classList.toggle('is-active');
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+        });
+    </script>
+</body>
+</html>
